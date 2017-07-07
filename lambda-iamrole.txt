@@ -1,0 +1,32 @@
+# Lambda functions need these IAM permissions assigned to execute.
+# I assigned this policy to a role named executeFunctions:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lambda:InvokeFunction"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+
+# And granted my IAM user this permission to allow it to pass privileges to Lambda:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowUserstoPassLambdaRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::${your_AWS_account_ID}:role/executeFunctions"
+        }
+    ]
+}
